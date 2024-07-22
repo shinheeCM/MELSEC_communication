@@ -27,7 +27,7 @@ class PLCCommunicationNode(Node):
 
     def plc_communication(self):
         d_2010_val = self.reading_resister_plc("D2010")
-        self.get_logger().info(f"d_2010_val -->{d_2010_val}")
+        # self.get_logger().info(f"d_2010_val -->{d_2010_val}")
         if self.write_data == 1:
             self.write_resister_plc("D2000", self.write_data)
             self.write_data = 0
@@ -43,6 +43,7 @@ class PLCCommunicationNode(Node):
         d_2005_val = self.reading_resister_plc("D2005")
         d_2012_val = self.reading_resister_plc("D2012")
         d_2014_val = self.reading_resister_plc("D2014")
+        # self.get_logger().info(f"{d_2011_val}, {d_2005_val}, {d_2012_val}, {d_2014_val}")
 
         if d_2014_val == 2:
             self.get_logger().info("d_2014_val == 2")
