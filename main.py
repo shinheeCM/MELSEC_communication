@@ -9,6 +9,9 @@ pymc3e = pymcprotocol.Type3E()
 pymc3e.connect("192.168.200.10", 3001)
 print("python3 connected!!!!!")
 
+
+global d_2010_val, d_2011_val, d_2005_val, d_2012_val, d_2014_val, loop_
+loop_ = False
 def reading_resister_plc(resister_name):
     d_val, dword_values = pymc3e.randomread(word_devices=[resister_name], dword_devices=[])
     return d_val[0]
@@ -19,10 +22,19 @@ def write_resister_plc(resister_name, write_data):
 
 def plc_communication():
     write_data = 1
+    global d_2010_val, d_2011_val, d_2005_val, d_2012_val, d_2014_val, loop_
+
     while True:
         # d_2010_val, dword_values = pymc3e.randomread(word_devices=["D2010"], dword_devices=[])
         d_2010_val = reading_resister_plc("D2010")
-        # print("D2010 --> ", d_2010_val)
+        d_2011_val = reading_resister_plc("D2011")
+        d_2005_val = reading_resister_plc("D2005")
+        d_2012_val = reading_resister_plc("D2012")
+        d_2014_val = reading_resister_plc("D2014")
+        # d_2014_val = reading_resister_plc("D2014")
+        if(d_2011_val and not d_2005_val and d_2012_val and not d_2014_val):
+            loop_ = True
+        print("D2010 --> ", d_2010_val)
         if write_data == 1:
             write_resister_plc("D2000", write_data)
             write_data = 0
@@ -32,19 +44,18 @@ def plc_communication():
         time.sleep(3)
 
 def plc_communication1():
-    while True:
-        d_2011_val = reading_resister_plc("D2011")
-        d_2005_val = reading_resister_plc("D2005")
-        d_2012_val = reading_resister_plc("D2012")
-        d_2014_val = reading_resister_plc("D2014")
-        d_2014_val = reading_resister_plc("D2014")
+    global d_2010_val, d_2011_val, d_2005_val, d_2012_val, d_2014_val, loop_
+    
+    while loop_:
+        
         print("d_2014_val ==> ", d_2014_val)
         print(d_2011_val, d_2005_val, d_2012_val, d_2014_val)
 
         if d_2014_val == 2:
             print("d_2014_val == ")
             write_resister_plc("D2001", 0)
-            break
+            loop_ = False
+            # break
             # time.sleep(3)
 
         if(d_2011_val and not d_2005_val and d_2012_val and not d_2014_val):
