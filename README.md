@@ -4,6 +4,13 @@
 
 This guide provides an overview of the PLC registers used for communication between a PC and a PLC in a conveyor system setup.
 
+## pymcprotocol
+ - MC protocol(MELSEC Communication Protocol) implementation by Python.
+ - MC protocol enables you to operate PLC from computer.
+
+## Installation
+ - pip install pymcprotocol
+ 
 ### Register Description
 
 #### PC to PLC Communication
