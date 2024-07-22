@@ -10,7 +10,7 @@ This guide provides an overview of the PLC registers used for communication betw
 
 ## Installation
  - pip install pymcprotocol
- 
+
 ### Register Description
 
 #### PC to PLC Communication
@@ -26,7 +26,7 @@ This guide provides an overview of the PLC registers used for communication betw
 
 #### PLC to PC Communication
 - **D2010**: Communication signal from PLC to PC.
-- **D2011**: Signal indicating the automatic operation of the conveyor.
+- **D2011**: Signal indicating the automatic operation of the conveyor. (alarm)
 - **D2012**: Ready signal for conveyor A (input).
 - **D2013**: Ready signal for conveyor B (discharge).
 - **D2014**: Signal indicating completion of movement on conveyor A (input).
