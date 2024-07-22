@@ -24,13 +24,13 @@ def plc_communication():
         d_2010_val = reading_resister_plc("D2010")
         print("D2010 --> ", d_2010_val)
         if write_data == 1:
-            write_resister_plc("D200", write_data)
+            write_resister_plc("D2000", write_data)
             write_data = 0
         elif write_data == 0:
-            write_resister_plc("D200", write_data)
+            write_resister_plc("D2000", write_data)
             write_data = 1
         time.sleep(3)
-        
+
 
 # Create a thread for the PLC communication
 plc_thread = threading.Thread(target=plc_communication)
@@ -39,7 +39,10 @@ plc_thread = threading.Thread(target=plc_communication)
 plc_thread.start()
 
 # You can do other tasks in the main thread
-# while True:
-    
+while True:
+    d_2011_val = reading_resister_plc("D2011")
+    d_2005_val = reading_resister_plc("D2005")
+    print("D2011 --> ", d_2011_val, "D2005 --> ", d_2005_val)
+
     # Main thread tasks
-    # time.sleep(1)
+    time.sleep(1)
