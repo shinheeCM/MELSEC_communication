@@ -30,6 +30,7 @@ def plc_communication():
             write_resister_plc("D2000", write_data)
             write_data = 1
         time.sleep(3)
+        
 
 
 # Create a thread for the PLC communication
