@@ -94,7 +94,7 @@ def plc_communication2():
         write_resister_plc("D2002", 1)
         time.sleep(1)
         write_resister_plc("D2004", 0)
-        time.sleep(3)
+        # time.sleep(3)
         if d_2015_val == 1:
             write_resister_plc("D2007", 1)
         # time.sleep(3)
