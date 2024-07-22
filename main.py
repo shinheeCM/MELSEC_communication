@@ -69,30 +69,30 @@ def plc_communication1():
             # break
 
 
-# def plc_communication2():
-#     while True:
-#         d_2011_val = reading_resister_plc("D2011")
-#         d_2005_val = reading_resister_plc("D2005")
-#         d_2012_val = reading_resister_plc("D2012")
-#         d_2014_val = reading_resister_plc("D2014")
+def plc_communication2():
+    while True:
+        d_2011_val = reading_resister_plc("D2011")
+        d_2005_val = reading_resister_plc("D2005")
+        d_2012_val = reading_resister_plc("D2012")
+        d_2014_val = reading_resister_plc("D2014")
 
-#         print(d_2011_val, d_2005_val, d_2012_val, d_2014_val)
-#         if(d_2011_val and not d_2005_val and d_2012_val and not d_2014_val):
-#             print("found ----> ")
-#             write_resister_plc("D2003", 1)
-#             time.sleep(3)
-#             write_resister_plc("D2001", 1)
-#             time.sleep(3)
-#             write_resister_plc("D2003", 0)
-#             # time.sleep(3)
-#             write_resister_plc("D2014", 1)
-#             time.sleep(3)
-#             write_resister_plc("D2006", 1)
-#             # time.sleep(3)
-#             write_resister_plc("D2014", 2)
-#             time.sleep(3)
-#             write_resister_plc("D2001", 0)
-#             time.sleep(3)
+        print(d_2011_val, d_2005_val, d_2012_val, d_2014_val)
+        if(d_2011_val and not d_2005_val and d_2012_val and not d_2014_val):
+            print("found ----> ")
+            write_resister_plc("D2003", 1)
+            time.sleep(3)
+            write_resister_plc("D2001", 1)
+            time.sleep(3)
+            write_resister_plc("D2003", 0)
+            # time.sleep(3)
+            write_resister_plc("D2014", 1)
+            time.sleep(3)
+            write_resister_plc("D2006", 1)
+            # time.sleep(3)
+            write_resister_plc("D2014", 2)
+            time.sleep(3)
+            write_resister_plc("D2001", 0)
+            time.sleep(3)
 
 
 
