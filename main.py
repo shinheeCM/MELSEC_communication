@@ -34,7 +34,6 @@ def plc_communication():
 def plc_communication1():
     # loop_ = True
     while True:
-        plc_communication2()
         d_2011_val = reading_resister_plc("D2011")
         d_2005_val = reading_resister_plc("D2005")
         d_2012_val = reading_resister_plc("D2012")
@@ -114,6 +113,10 @@ plc_thread.start()
 plc_thread1 = threading.Thread(target=plc_communication1)
 # Start the thread
 plc_thread1.start()
+
+plc_thread2 = threading.Thread(target=plc_communication2)
+# Start the thread
+plc_thread2.start()
 # You can do other tasks in the main thread
 
         # print("")
