@@ -32,22 +32,27 @@ def plc_communication():
         time.sleep(3)
 
 def plc_communication1():
+    # loop_ = True
     while True:
         d_2011_val = reading_resister_plc("D2011")
         d_2005_val = reading_resister_plc("D2005")
         d_2012_val = reading_resister_plc("D2012")
         d_2014_val = reading_resister_plc("D2014")
         d_2014_val = reading_resister_plc("D2014")
-        print("d_2014_val ==> ", d_2014_val)
-        print(d_2011_val, d_2005_val, d_2012_val, d_2014_val)
+        # print("d_2014_val ==> ", d_2014_val)
+        
+        # if(d_2011_val and not d_2005_val and d_2012_val and not d_2014_val):
+        #     loop_ = True
 
         if d_2014_val == 2:
             print("d_2014_val == ")
+            print(d_2011_val, d_2005_val, d_2012_val, d_2014_val)
+            time.sleep(3)
             write_resister_plc("D2001", 0)
-            break
-            # time.sleep(3)
+            # loop_ = False
+            
 
-        if(d_2011_val and not d_2005_val and d_2012_val and not d_2014_val):
+        if(d_2011_val==1 and d_2005_val==0 and d_2012_val==1 and d_2014_val==0):
             print("found ----> ")
             write_resister_plc("D2003", 1)
             time.sleep(3)
