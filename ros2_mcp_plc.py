@@ -13,8 +13,8 @@ class PLCCommunicationNode(Node):
         
         # Create timers
         self.timer1 = self.create_timer(3.0, self.plc_communication)
-        self.timer2 = self.create_timer(0.5, self.plc_communication1)
-        self.timer3 = self.create_timer(0.5, self.plc_communication2)
+        self.timer2 = self.create_timer(0.05, self.plc_communication1)
+        self.timer3 = self.create_timer(0.05, self.plc_communication2)
 
         self.write_data = 1
 
@@ -83,6 +83,7 @@ class PLCCommunicationNode(Node):
         if d_2015_val == 2:
             self.get_logger().info(f"d_2015_val == {d_2015_val}")
             self.write_resister_plc("D2002", 0)
+            self.write_resister_plc("D2007", 0)
 
         elif d_2011_val == 1 and d_2005_val == 1 and d_2013_val == 1 and d_2015_val == 0:
             self.get_logger().info("Found plc_communication2 condition")
@@ -92,7 +93,7 @@ class PLCCommunicationNode(Node):
             # time.sleep(1)
             self.write_resister_plc("D2004", 0)
         
-        if d_2011_val == 1 and d_2005_val == 0 and d_2013_val == 1 and d_2015_val == 1:
+        if d_2015_val == 1:
             self.get_logger().info(f"d_2005_val --> {d_2005_val}")
             self.write_resister_plc("D2007", 1)
             
