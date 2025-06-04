@@ -147,7 +147,14 @@ def amr_arrived():
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
-
+@app.route('/amr/align-conveyor', methods=['POST'])
+def amr_align_conveyor():
+    try:
+        write_register("D2003", 0)
+        write_register("D2001", 1)
+        return jsonify({"status": "success", "message": "D2003 set to 0, D2001 set to 1 (Conveyor alignment started)"}), 200
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)

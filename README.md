@@ -32,8 +32,11 @@
         -d '{"product_detected": 0}'
 
     The PLC to detect no object on conveyor (based on the signals), and when this happens, automatically call (trigger) the AMR via the MES or a button API.
-    
+
     curl http://localhost:5000/amr/no-object-detected_plc
+
+    AMR arrived -->
+    @app.route('/amr/arrived', methods=['POST'])
     
 
 ```
