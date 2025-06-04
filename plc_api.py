@@ -81,7 +81,7 @@ def set_product_detected():
     write_register("D2005", status)
     return jsonify({"message": f"D2005 set to {status}"}), 200
 
-@app.route('/amr/object-detection-status', methods=['GET'])
+@app.route('/amr/object-detection-status-plc', methods=['GET'])
 def object_detection_status():
     has_object = (d_values.get("D2011", 0) == 1 and d_values.get("D2013", 0) == 1)
     has_no_object = (d_values.get("D2011", 0) == 1 and d_values.get("D2012", 0) == 1)

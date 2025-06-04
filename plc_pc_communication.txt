@@ -43,6 +43,7 @@ D2005 = 1 (AMR if object detected)
 
 READ -->
 
+PLC convare
 * Confirm signal: D2011 = 1
 * Confirm signal: D2012 = 1
 
