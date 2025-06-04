@@ -1,5 +1,20 @@
 # MELSEC Communication Guide
 
+# API LIST
+```
+    Get status:
+    curl http://localhost:5000/status
+
+    Start Input Conveyor:
+    curl -X POST http://localhost:5000/start_input_conveyor
+
+    Start Discharge Conveyor:
+    curl -X POST http://localhost:5000/start_discharge_conveyor
+    
+    Start toggle signal (D2000, D2010):
+    curl -X POST http://localhost:5000/toggle_signal
+
+```
 ## PLC Register Overview
 
 This guide provides an overview of the PLC registers used for communication between a PC and a PLC in a conveyor system setup.

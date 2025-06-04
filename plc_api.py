@@ -102,7 +102,7 @@ def toggle_signal():
                 write_register(reg, 1)
                 time.sleep(3)
                 write_register(reg, 0)
-                time.sleep(3)
+                # time.sleep(3)
     threading.Thread(target=toggler, daemon=True).start()
     return jsonify({"message": "Started toggling D2000 and D2010"})
 
