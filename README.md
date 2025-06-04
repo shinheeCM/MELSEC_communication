@@ -33,7 +33,7 @@
 
     The PLC to detect no object on conveyor (based on the signals), and when this happens, automatically call (trigger) the AMR via the MES or a button API.
 
-    curl http://localhost:5000/amr/no-object-detected_plc
+    curl http://localhost:5000/amr/object-detection-status
 
     AMR arrived -->
     curl -X POST http://localhost:5000/amrrrived
@@ -51,7 +51,7 @@
 
     Move to Point 1 → Stop for 3s → Move to Point 2 → Stop for 3s → Move to Point 3 → Stop for 3s → Return to Home → Stop
 
-    
+
 
 
 

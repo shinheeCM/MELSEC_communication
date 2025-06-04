@@ -133,11 +133,15 @@ def set_product_detected():
     write_register("D2005", status)
     return jsonify({"message": f"D2005 set to {status}"}), 200
 
-@app.route('/amr/no-object-detected_plc', methods=['GET'])
-def no_object_detected():
-    # Check the required signals for no object detected
-    no_object = (d_values.get("D2011", 0) == 1 and d_values.get("D2012", 0) == 1)
-    return jsonify({"no_object": no_object})
+@app.route('/amr/object-detection-status', methods=['GET'])
+def object_detection_status():
+    has_object = (d_values.get("D2011", 0) == 1 and d_values.get("D2013", 0) == 1)
+    has_no_object = (d_values.get("D2011", 0) == 1 and d_values.get("D2012", 0) == 1)
+    
+    return jsonify({
+        "object_detected": has_object,
+        "no_object_detected": has_no_object
+    })
 
 @app.route('/amr/arrived', methods=['POST'])
 def amr_arrived():
@@ -173,7 +177,7 @@ def confirm_product():
     
     if confirmed:
         write_register("D2001", 0)
-        
+
     return jsonify({
         "product_confirmed": confirmed
     })
