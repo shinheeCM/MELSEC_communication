@@ -2,6 +2,8 @@
 
 # API LIST
 ```
+    ./status.sh
+    
     Get status:
     curl http://localhost:5000/status
 
@@ -24,7 +26,7 @@
     This will set D2005 = 1 (product detected).
 
     To clear it (set D2005 = 0):
-    
+
     curl -X POST http://localhost:5000/amr/product-detected \
         -H "Content-Type: application/json" \
         -d '{"product_detected": 0}'
