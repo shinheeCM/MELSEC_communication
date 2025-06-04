@@ -106,6 +106,18 @@ def toggle_signal():
     threading.Thread(target=toggler, daemon=True).start()
     return jsonify({"message": "Started toggling D2000 and D2010"})
 
+@app.route('/amr/product-detected', methods=['POST'])
+def set_product_detected():
+    data = request.get_json()
+    if not data or 'product_detected' not in data:
+        return jsonify({"error": "Missing 'product_detected' in JSON body"}), 400
+
+    status = data['product_detected']
+    if status not in [0, 1]:
+        return jsonify({"error": "'product_detected' must be 0 or 1"}), 400
+    
+    write_register("D2005", status)
+    return jsonify({"message": f"D2005 set to {status}"}), 200
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)

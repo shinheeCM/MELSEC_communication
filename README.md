@@ -10,9 +10,24 @@
 
     Start Discharge Conveyor:
     curl -X POST http://localhost:5000/start_discharge_conveyor
-    
+
     Start toggle signal (D2000, D2010):
     curl -X POST http://localhost:5000/toggle_signal
+
+
+    To call your POST API at /amr/product-detected, you can use curl like this:
+
+    curl -X POST http://localhost:5000/amr/product-detected \
+        -H "Content-Type: application/json" \
+        -d '{"product_detected": 1}'
+        
+    This will set D2005 = 1 (product detected).
+
+    To clear it (set D2005 = 0):
+
+    curl -X POST http://localhost:5000/amr/product-detected \
+        -H "Content-Type: application/json" \
+        -d '{"product_detected": 0}'
 
 ```
 ## PLC Register Overview
