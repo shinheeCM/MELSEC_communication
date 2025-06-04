@@ -59,6 +59,16 @@
     Align-conveyor Confirmed-->
         curl "http://localhost:5000/amr/alignment/confirmed?type=loading"
         curl "http://localhost:5000/amr/alignment/confirmed?type=unloading"
+    
+
+    confirm-product -->
+        curl -X POST http://localhost:5000/amr/confirm-product \
+            -H "Content-Type: application/json" \
+            -d '{"type": "loading"}'
+
+        curl -X POST http://localhost:5000/amr/confirm-product \
+            -H "Content-Type: application/json" \
+            -d '{"type": "unloading"}'
         
 
 
@@ -76,6 +86,7 @@
         {"no_object_detected":false,"object_detected":true}
     Issue movement command for Discharge Conveyor (B)
     Send the Amr to Convare B
+    
     then call -->
 
     Start Discharge Conveyor:
@@ -86,14 +97,7 @@
     {"product_confirmed":true} -->
 
 
-    confirm-product -->
-        curl -X POST http://localhost:5000/amr/confirm-product \
-            -H "Content-Type: application/json" \
-            -d '{"type": "loading"}'
-
-        curl -X POST http://localhost:5000/amr/confirm-product \
-            -H "Content-Type: application/json" \
-            -d '{"type": "unloading"}'
+    
 
     
 
