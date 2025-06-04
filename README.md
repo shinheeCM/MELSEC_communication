@@ -45,6 +45,13 @@
     Align-conveyor Confirmed-->
     curl http://localhost:5000/amr/alignment/confirmed
 
+    NOW run convare from AMR (Naresh Action server)
+
+    curl -X POST http://localhost:5000/amr/confirm-product
+
+    Move to Point 1 → Stop for 3s → Move to Point 2 → Stop for 3s → Move to Point 3 → Stop for 3s → Return to Home → Stop
+
+    
 
 
 

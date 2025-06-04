@@ -163,6 +163,20 @@ def check_alignment_confirmed():
         "alignment_confirmed": confirmed
     })
 
+@app.route('/amr/confirm-product', methods=['POST'])
+def confirm_product():
+    # Write D2006 = 1 to PLC
+    write_register("D2006", 1)
+    
+    # Check if D2014 == 2
+    confirmed = (d_values.get("D2014", 0) == 2)
+    
+    if confirmed:
+        write_register("D2001", 0)
+        
+    return jsonify({
+        "product_confirmed": confirmed
+    })
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
