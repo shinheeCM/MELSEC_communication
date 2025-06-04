@@ -57,8 +57,8 @@
 
         {"no_object_detected":false,"object_detected":true}
     Issue movement command for Discharge Conveyor (B)
-    Send the Amr to Conveter B
-    
+    Send the Amr to Convare B
+
 
 
 
