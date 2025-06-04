@@ -177,10 +177,22 @@ def amr_align_conveyor():
 
 @app.route('/amr/alignment/confirmed', methods=['GET'])
 def check_alignment_confirmed():
-    confirmed = (d_values.get("D2014", 0) == 1)
+    alignment_type = request.args.get("type")
+
+    if alignment_type == "loading":
+        confirmed = (d_values.get("D2014", 0) == 1)
+    elif alignment_type == "unloading":
+        confirmed = (d_values.get("D2015", 0) == 1)
+    else:
+        return jsonify({
+            "status": "error",
+            "message": "Missing or invalid type. Use 'loading' or 'unloading'."
+        }), 400
+
     return jsonify({
         "alignment_confirmed": confirmed
-    })
+    }), 200
+
 
 @app.route('/amr/confirm-product', methods=['POST'])
 def confirm_product():
