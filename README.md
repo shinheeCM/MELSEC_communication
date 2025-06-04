@@ -3,7 +3,7 @@
 # API LIST
 ```
     ./status.sh
-    
+
     Get status:
     curl http://localhost:5000/status
 
@@ -31,6 +31,9 @@
         -H "Content-Type: application/json" \
         -d '{"product_detected": 0}'
 
+    The PLC to detect no object on conveyor (based on the signals), and when this happens, automatically call (trigger) the AMR via the MES or a button API.
+    
+    curl http://localhost:5000/amr/no-object-detected_plc
     
 
 ```

@@ -133,5 +133,12 @@ def set_product_detected():
     write_register("D2005", status)
     return jsonify({"message": f"D2005 set to {status}"}), 200
 
+@app.route('/amr/no-object-detected_plc', methods=['GET'])
+def no_object_detected():
+    # Check the required signals for no object detected
+    no_object = (d_values.get("D2011", 0) == 1 and d_values.get("D2012", 0) == 1)
+    return jsonify({"no_object": no_object})
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)

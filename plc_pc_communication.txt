@@ -32,16 +32,20 @@ D2010 = 0  (3 seconds)
 
 When AMR conveyor detects a product:
 
+Write -->
 D2005 = 1 (AMR if object detected)
 D2005 = 0 (AMR if object not detected)
 
  *When stopped at the home position, check whether an object is detected on the AMR conveyor.
 
-1) If no object is detected:
+1) If no object is detected FROM PLC :
+
+READ -->
 
 * Confirm signal: D2011 = 1
 * Confirm signal: D2012 = 1
-* Start signal (manual trigger)
+
+* Start signal (manual trigger) MES
 * Issue movement command for Input Conveyor (A)
 
 * D2003 = 1
