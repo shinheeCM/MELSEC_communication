@@ -126,19 +126,54 @@ def object_detection_status():
 @app.route('/amr/arrived', methods=['POST'])
 def amr_arrived():
     try:
-        write_register("D2003", 1)
-        return jsonify({"status": "success", "message": "D2003 set to 1 (AMR arrived)"}), 200
+        data = request.get_json()
+        if not data or 'type' not in data:
+            return jsonify({"status": "error", "message": "Missing 'type' in request"}), 400
+
+        if data['type'] == 'loading':
+            write_register("D2003", 1)
+            return jsonify({"status": "success", "message": "D2003 set to 1 (AMR arrived)"}), 200
+
+        elif data['type'] == 'unloading':
+            write_register("D2004", 1)
+            return jsonify({"status": "success", "message": "D2004 set to 1"}), 200
+
+        else:
+            return jsonify({"status": "error", "message": "Invalid type. Use 'A' or 'B'."}), 400
+
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
+
 
 @app.route('/amr/align-conveyor', methods=['POST'])
 def amr_align_conveyor():
     try:
-        write_register("D2003", 0)
-        write_register("D2001", 1)
-        return jsonify({"status": "success", "message": "D2003 set to 0, D2001 set to 1 (Conveyor alignment started)"}), 200
+        data = request.get_json()
+        if not data or 'type' not in data:
+            return jsonify({"status": "error", "message": "Missing 'type' in request"}), 400
+
+        if data['type'] == 'loading':
+            write_register("D2003", 0)
+            write_register("D2001", 1)
+            return jsonify({
+                "status": "success",
+                "message": "Loading: D2003 set to 0, D2001 set to 1"
+            }), 200
+
+        elif data['type'] == 'unloading':
+            write_register("D2004", 0)
+            write_register("D2002", 1)
+            return jsonify({
+                "status": "success",
+                "message": "Unloading: D2004 set to 0, D2002 set to 1"
+            }), 200
+
+        else:
+            return jsonify({"status": "error", "message": "Invalid type. Use 'loading' or 'unloading'."}), 400
+
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
+    
 
 @app.route('/amr/alignment/confirmed', methods=['GET'])
 def check_alignment_confirmed():
@@ -161,6 +196,8 @@ def confirm_product():
     return jsonify({
         "product_confirmed": confirmed
     })
+
+
 
 @app.route("/start_discharge_conveyor", methods=["POST"])
 def start_discharge_conveyor():

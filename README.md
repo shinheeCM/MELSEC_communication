@@ -37,11 +37,30 @@
         {"no_object_detected":true,"object_detected":false}
 
     AMR arrived -->
-    curl -X POST http://localhost:5000/amrrrived
-
+    curl -X POST http://localhost:5000/amr/arrived \
+        -H "Content-Type: application/json" \
+        -d '{"type": "loading"}'
+    
+    curl -X POST http://localhost:5000/amr/arrived \
+        -H "Content-Type: application/json" \
+        -d '{"type": "unloading"}'
+    
 
     Align-conveyor -->
-    curl -X POST http://localhost:5000/amr/align-conveyor
+    curl -X POST http://localhost:5000/amr/align-conveyor \
+        -H "Content-Type: application/json" \
+        -d '{"type": "loading"}'
+    
+    curl -X POST http://localhost:5000/amr/align-conveyor \
+        -H "Content-Type: application/json" \
+        -d '{"type": "unloading"}'
+
+
+
+
+
+    
+    
 
     Align-conveyor Confirmed-->
     curl http://localhost:5000/amr/alignment/confirmed
@@ -60,7 +79,7 @@
     Issue movement command for Discharge Conveyor (B)
     Send the Amr to Convare B
     then call -->
-    
+
     Start Discharge Conveyor:
     curl -X POST http://localhost:5000/start_discharge_conveyor
 
