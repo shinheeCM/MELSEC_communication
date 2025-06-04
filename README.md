@@ -36,6 +36,8 @@
 
         {"no_object_detected":true,"object_detected":false}
 
+    
+
     AMR arrived -->
         curl -X POST http://localhost:5000/amr/arrived \
             -H "Content-Type: application/json" \
