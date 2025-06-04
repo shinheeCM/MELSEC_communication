@@ -68,28 +68,26 @@ def status():
 # Write -->
 # D2005 = 1 (AMR if object detected)
 # D2005 = 0 (AMR if object not detected)
-@app.route('/amr/product-detected', methods=['POST'])
+
+@app.route('/amr/object-detection-status-amr', methods=['POST'])
 def set_product_detected():
     data = request.get_json()
-    if not data or 'product_detected' not in data:
-        return jsonify({"error": "Missing 'product_detected' in JSON body"}), 400
+    if not data or 'type' not in data:
+        return jsonify({"error": "Missing 'type' in JSON body"}), 400
 
-    status = data['product_detected']
-    if status not in [0, 1]:
-        return jsonify({"error": "'product_detected' must be 0 or 1"}), 400
-    
-    write_register("D2005", status)
-    return jsonify({"message": f"D2005 set to {status}"}), 200
+    amr_type = data['type'].lower()
 
-# @app.route('/amr/object-detection-status-plc', methods=['GET'])
-# def object_detection_status():
-#     has_object = (d_values.get("D2011", 0) == 1 and d_values.get("D2013", 0) == 1)
-#     has_no_object = (d_values.get("D2011", 0) == 1 and d_values.get("D2012", 0) == 1)
-    
-#     return jsonify({
-#         "object_detected": has_object,
-#         "no_object_detected": has_no_object
-#     })
+    if amr_type == 'loading':
+        write_register("D2005", 0)
+        return jsonify({"message": "D2005 set to 0 (loading)"}), 200
+
+    elif amr_type == 'unloading':
+        write_register("D2005", 1)
+        return jsonify({"message": "D2005 set to 1 (unloading)"}), 200
+
+    else:
+        return jsonify({"error": "Invalid 'type'. Must be 'loading' or 'unloading'."}), 400
+
 
 @app.route('/amr/object-detection-status-plc', methods=['POST'])
 def object_detection_status():

@@ -32,7 +32,15 @@
 
     The PLC to detect no object on conveyor (based on the signals), and when this happens, automatically call (trigger) the AMR via the MES or a button API.
         {"no_object_detected":true,"object_detected":false}
+    
+    AMR convare->
+    curl -X POST http://localhost:5000/amr/object-detection-status-amr \
+     -H "Content-Type: application/json" \
+     -d '{"type": "loading"}'
 
+    curl -X POST http://localhost:5000/amr/object-detection-status-amr \
+     -H "Content-Type: application/json" \
+     -d '{"type": "unloading"}'
     
     PLC convare->
     curl -X POST http://localhost:5000/amr/object-detection-status-plc \
