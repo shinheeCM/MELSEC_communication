@@ -35,7 +35,14 @@
 
     
     PLC convare->
-    curl http://localhost:5000/amr/object-detection-status-plc
+    curl -X POST http://localhost:5000/amr/object-detection-status-plc \
+     -H "Content-Type: application/json" \
+     -d '{"type": "loading"}'
+    
+    curl -X POST http://localhost:5000/amr/object-detection-status-plc \
+     -H "Content-Type: application/json" \
+     -d '{"type": "unloading"}'
+
 
     AMR arrived -->
         curl -X POST http://localhost:5000/amr/move \

@@ -81,15 +81,42 @@ def set_product_detected():
     write_register("D2005", status)
     return jsonify({"message": f"D2005 set to {status}"}), 200
 
-@app.route('/amr/object-detection-status-plc', methods=['GET'])
-def object_detection_status():
-    has_object = (d_values.get("D2011", 0) == 1 and d_values.get("D2013", 0) == 1)
-    has_no_object = (d_values.get("D2011", 0) == 1 and d_values.get("D2012", 0) == 1)
+# @app.route('/amr/object-detection-status-plc', methods=['GET'])
+# def object_detection_status():
+#     has_object = (d_values.get("D2011", 0) == 1 and d_values.get("D2013", 0) == 1)
+#     has_no_object = (d_values.get("D2011", 0) == 1 and d_values.get("D2012", 0) == 1)
     
-    return jsonify({
-        "object_detected": has_object,
-        "no_object_detected": has_no_object
-    })
+#     return jsonify({
+#         "object_detected": has_object,
+#         "no_object_detected": has_no_object
+#     })
+
+@app.route('/amr/object-detection-status-plc', methods=['POST'])
+def object_detection_status():
+    try:
+        data = request.get_json()
+        if not data or 'type' not in data:
+            return jsonify({"status": "error", "message": "Missing 'type' in request"}), 400
+
+        # Common: D2011 must be 1 (AMR aligned)
+        aligned = d_values.get("D2011", 0) == 1
+
+        if data['type'] == 'loading':
+            # Object present: D2011 == 1 and D2013 == 1
+            detected = aligned and d_values.get("D2013", 0) == 1
+            return jsonify({"object_detected": detected}), 200
+
+        elif data['type'] == 'unloading':
+            # No object: D2011 == 1 and D2012 == 1
+            no_object = aligned and d_values.get("D2012", 0) == 1
+            return jsonify({"no_object_detected": no_object}), 200
+
+        else:
+            return jsonify({"status": "error", "message": "Invalid type. Use 'loading' or 'unloading'."}), 400
+
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
 
 @app.route('/amr/move', methods=['POST'])
 def amr_arrived():
