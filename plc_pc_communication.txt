@@ -49,10 +49,12 @@ READ -->
 * Start signal (manual trigger) MES
 * Issue movement command for Input Conveyor (A)
 
+AMR Moving
 * D2003 = 1
-* AMR arrived
-* Move AMR conveyor vertically to align with Input Conveyor height
 
+* Move AMR conveyor vertically to align with Input Conveyor height
+* AMR convare run
+PLC convare moving if you call -->
 * Set D2003 = 0
 * Set D2001 = 1
 * Confirm signal: D2014 = 1

@@ -39,21 +39,21 @@
     
 
     AMR arrived -->
-        curl -X POST http://localhost:5000/amr/arrived \
+        curl -X POST http://localhost:5000/amr/move \
             -H "Content-Type: application/json" \
             -d '{"type": "loading"}'
         
-        curl -X POST http://localhost:5000/amr/arrived \
+        curl -X POST http://localhost:5000/amr/move \
             -H "Content-Type: application/json" \
             -d '{"type": "unloading"}'
     
 
     Align-conveyor -->
-        curl -X POST http://localhost:5000/amr/align-conveyor \
+        curl -X POST http://localhost:5000/amr/run-plc-conveyor \
             -H "Content-Type: application/json" \
             -d '{"type": "loading"}'
         
-        curl -X POST http://localhost:5000/amr/align-conveyor \
+        curl -X POST http://localhost:5000/amr/run-plc-conveyor \
             -H "Content-Type: application/json" \
             -d '{"type": "unloading"}'
     

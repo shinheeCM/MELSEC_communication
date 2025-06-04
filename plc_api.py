@@ -91,7 +91,7 @@ def object_detection_status():
         "no_object_detected": has_no_object
     })
 
-@app.route('/amr/arrived', methods=['POST'])
+@app.route('/amr/move', methods=['POST'])
 def amr_arrived():
     try:
         data = request.get_json()
@@ -113,7 +113,7 @@ def amr_arrived():
         return jsonify({"status": "error", "message": str(e)}), 500
 
 
-@app.route('/amr/align-conveyor', methods=['POST'])
+@app.route('/amr/run-plc-conveyor', methods=['POST'])
 def amr_align_conveyor():
     try:
         data = request.get_json()
@@ -123,6 +123,8 @@ def amr_align_conveyor():
         if data['type'] == 'loading':
             write_register("D2003", 0)
             write_register("D2001", 1)
+            while d_values.get("D2014", 0) != 1:
+                time.sleep(1)
             return jsonify({
                 "status": "success",
                 "message": "Loading: D2003 set to 0, D2001 set to 1"
@@ -131,6 +133,8 @@ def amr_align_conveyor():
         elif data['type'] == 'unloading':
             write_register("D2004", 0)
             write_register("D2002", 1)
+            while d_values.get("D2015", 0) != 1:
+                time.sleep(1)
             return jsonify({
                 "status": "success",
                 "message": "Unloading: D2004 set to 0, D2002 set to 1"
