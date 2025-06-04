@@ -41,7 +41,10 @@
 
     Align-conveyor -->
     curl -X POST http://localhost:5000/amr/align-conveyor
-    
+
+    Align-conveyor Confirmed-->
+    curl http://localhost:5000/amr/alignment/confirmed
+
 
 
 

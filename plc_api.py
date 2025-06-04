@@ -156,6 +156,12 @@ def amr_align_conveyor():
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
+@app.route('/amr/alignment/confirmed', methods=['GET'])
+def check_alignment_confirmed():
+    confirmed = (d_values.get("D2014", 0) == 1)
+    return jsonify({
+        "alignment_confirmed": confirmed
+    })
 
 
 if __name__ == "__main__":
