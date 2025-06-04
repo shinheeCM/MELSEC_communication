@@ -62,6 +62,7 @@ READ -->
 * Confirm signal: D2014 = 2
 
 * Set D2001 = 0
+* Set D2006 = 0
 * Move to Point 1 → Stop for 3s → Move to Point 2 → Stop for 3s → Move to Point 3 → Stop for 3s → Return to Home → Stop
 
 ---
@@ -86,4 +87,5 @@ READ -->
 * Confirm signal: D2015 = 2
 
 * Set D2002 = 0
+* Set D2007 = 0
 * Return to Home → Stop

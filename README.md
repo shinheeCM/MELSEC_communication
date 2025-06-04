@@ -59,7 +59,7 @@
     Align-conveyor Confirmed-->
         curl "http://localhost:5000/amr/alignment/confirmed?type=loading"
         curl "http://localhost:5000/amr/alignment/confirmed?type=unloading"
-        
+
 
 
     NOW run convare from AMR (Naresh Action server)
@@ -81,7 +81,8 @@
     curl -X POST http://localhost:5000/start_discharge_conveyor
 
 
-
+    curl -X POST http://localhost:5000/plc/confirm-product
+{"product_confirmed":true}
 
 
     
