@@ -37,6 +37,13 @@
 
     AMR arrived -->
     @app.route('/amr/arrived', methods=['POST'])
+
+
+    Align-conveyor -->
+    curl -X POST http://localhost:5000/amr/align-conveyor
+
+    
+
     
 
 ```
