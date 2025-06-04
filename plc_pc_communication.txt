@@ -33,8 +33,9 @@ D2010 = 0  (3 seconds)
 When AMR conveyor detects a product:
 
 Write -->
-D2005 = 1 (AMR if object detected)
+
 D2005 = 0 (AMR if object not detected)
+D2005 = 1 (AMR if object detected)
 
  *When stopped at the home position, check whether an object is detected on the AMR conveyor.
 
