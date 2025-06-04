@@ -12,8 +12,8 @@
 
     
 
-    Start toggle signal (D2000, D2010):
-    curl -X POST http://localhost:5000/toggle_signal
+    <!-- Start toggle signal (D2000, D2010):
+    curl -X POST http://localhost:5000/toggle_signal -->
 
 
     To call your POST API at /amr/product-detected, you can use curl like this:
@@ -86,7 +86,7 @@
         {"no_object_detected":false,"object_detected":true}
     Issue movement command for Discharge Conveyor (B)
     Send the Amr to Convare B
-    
+
     then call -->
 
     Start Discharge Conveyor:

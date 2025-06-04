@@ -64,7 +64,10 @@ def status():
     return jsonify(d_values)
 
 
-# After calling robot from MES then -->
+# After calling robot from MES then From AMR-->
+# Write -->
+# D2005 = 1 (AMR if object detected)
+# D2005 = 0 (AMR if object not detected)
 @app.route('/amr/product-detected', methods=['POST'])
 def set_product_detected():
     data = request.get_json()
