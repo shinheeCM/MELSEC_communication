@@ -85,27 +85,7 @@ def start_input_conveyor():
 
     return jsonify({"message": "Input conveyor sequence completed"})
 
-@app.route("/start_discharge_conveyor", methods=["POST"])
-def start_discharge_conveyor():
-    """Scenario 2: Object detected on AMR conveyor, use Discharge Conveyor B"""
-    write_register("D2004", 1)  # Start Discharge Conveyor
-    time.sleep(3)
-    write_register("D2002", 1)  # B Conveyor Arrival
-    write_register("D2004", 0)
 
-    # Wait for ready signal
-    while read_register("D2015") != 1:
-        time.sleep(1)
-
-    # Simulate discharge
-    write_register("D2007", 1)
-
-    while read_register("D2015") != 2:
-        time.sleep(1)
-
-    write_register("D2002", 0)
-
-    return jsonify({"message": "Discharge conveyor sequence completed"})
 
 @app.route("/toggle_signal", methods=["POST"])
 def toggle_signal():
@@ -181,6 +161,28 @@ def confirm_product():
     return jsonify({
         "product_confirmed": confirmed
     })
+
+@app.route("/start_discharge_conveyor", methods=["POST"])
+def start_discharge_conveyor():
+    """Scenario 2: Object detected on AMR conveyor, use Discharge Conveyor B"""
+    write_register("D2004", 1)  # Start Discharge Conveyor
+    time.sleep(3)
+    write_register("D2002", 1)  # B Conveyor Arrival
+    write_register("D2004", 0)
+
+    # Wait for ready signal
+    while read_register("D2015") != 1:
+        time.sleep(1)
+
+    # Simulate discharge
+    write_register("D2007", 1)
+
+    while read_register("D2015") != 2:
+        time.sleep(1)
+
+    write_register("D2002", 0)
+
+    return jsonify({"message": "Discharge conveyor sequence completed"})
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)

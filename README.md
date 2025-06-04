@@ -10,8 +10,7 @@
     Start Input Conveyor:
     curl -X POST http://localhost:5000/start_input_conveyor
 
-    Start Discharge Conveyor:
-    curl -X POST http://localhost:5000/start_discharge_conveyor
+    
 
     Start toggle signal (D2000, D2010):
     curl -X POST http://localhost:5000/toggle_signal
@@ -53,13 +52,17 @@
 
     Move to Point 1 → Stop for 3s → Move to Point 2 → Stop for 3s → Move to Point 3 → Stop for 3s → Return to Home → Stop
 
-     curl http://localhost:5000/amr/object-detection-status
+
+
+    curl http://localhost:5000/amr/object-detection-status
 
         {"no_object_detected":false,"object_detected":true}
     Issue movement command for Discharge Conveyor (B)
     Send the Amr to Convare B
-
-
+    then call -->
+    
+    Start Discharge Conveyor:
+    curl -X POST http://localhost:5000/start_discharge_conveyor
 
 
 
