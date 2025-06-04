@@ -64,20 +64,7 @@ def status():
     return jsonify(d_values)
 
 
-
-@app.route("/toggle_signal", methods=["POST"])
-def toggle_signal():
-    """Toggle D2000 and D2010 every 3 seconds."""
-    def toggler():
-        while True:
-            for reg in ["D2000", "D2010"]:
-                write_register(reg, 1)
-                time.sleep(3)
-                write_register(reg, 0)
-                # time.sleep(3)
-    threading.Thread(target=toggler, daemon=True).start()
-    return jsonify({"message": "Started toggling D2000 and D2010"})
-
+# After calling robot from MES then -->
 @app.route('/amr/product-detected', methods=['POST'])
 def set_product_detected():
     data = request.get_json()
@@ -254,6 +241,19 @@ def start_discharge_conveyor():
     write_register("D2002", 0)
 
     return jsonify({"message": "Discharge conveyor sequence completed"})
+
+@app.route("/toggle_signal", methods=["POST"])
+def toggle_signal():
+    """Toggle D2000 and D2010 every 3 seconds."""
+    def toggler():
+        while True:
+            for reg in ["D2000", "D2010"]:
+                write_register(reg, 1)
+                time.sleep(3)
+                write_register(reg, 0)
+                # time.sleep(3)
+    threading.Thread(target=toggler, daemon=True).start()
+    return jsonify({"message": "Started toggling D2000 and D2010"})
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
