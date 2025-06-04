@@ -190,6 +190,7 @@ def check_alignment_confirmed():
 @app.route('/plc/confirm-product', methods=['POST'])
 def confirm_product():
     # Write D2006 = 1 to PLC
+    # write_register("D2007", 0)
     write_register("D2007", 1)
     
     # Check if D2014 == 2
