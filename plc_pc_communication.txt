@@ -49,7 +49,7 @@ READ -->
 * Issue movement command for Input Conveyor (A)
 
 * D2003 = 1
-* Input Conveyor (A) arrived
+* AMR arrived
 * Move AMR conveyor vertically to align with Input Conveyor height
 
 * Set D2003 = 0

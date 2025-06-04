@@ -139,6 +139,15 @@ def no_object_detected():
     no_object = (d_values.get("D2011", 0) == 1 and d_values.get("D2012", 0) == 1)
     return jsonify({"no_object": no_object})
 
+@app.route('/amr/arrived', methods=['POST'])
+def amr_arrived():
+    try:
+        write_register("D2003", 1)
+        return jsonify({"status": "success", "message": "D2003 set to 1 (AMR arrived)"}), 200
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
