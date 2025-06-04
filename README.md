@@ -24,7 +24,7 @@
 
     This will set D2005 = 1 (product detected).
 
-    To clear it (set D2005 = 0):
+    To clear it (set D2005 = 0): (product not detected on top of the amr).
 
     curl -X POST http://localhost:5000/amr/product-detected \
         -H "Content-Type: application/json" \
