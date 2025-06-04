@@ -22,7 +22,8 @@ def read_register(name):
 def write_register(name, value):
     pymc3e.randomwrite(word_devices=[name], word_values=[value], dword_devices=[], dword_values=[])
 
-# Background thread function to toggle D2000 every 3 seconds
+# PC -> PLC
+# Background thread function to toggle D2000 every 3 seconds 
 def toggle_D2000_signal():
     while True:
         write_register("D2000", 1)
