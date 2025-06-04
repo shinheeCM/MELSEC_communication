@@ -171,20 +171,20 @@ def check_alignment_confirmed():
     }), 200
 
 
-@app.route('/amr/confirm-product', methods=['POST'])
-def confirm_product():
-    # Write D2006 = 1 to PLC
-    write_register("D2006", 1)
+# @app.route('/amr/confirm-product', methods=['POST'])
+# def confirm_product():
+#     # Write D2006 = 1 to PLC
+#     write_register("D2006", 1)
     
-    # Check if D2014 == 2
-    confirmed = (d_values.get("D2014", 0) == 2)
+#     # Check if D2014 == 2
+#     confirmed = (d_values.get("D2014", 0) == 2)
     
-    if confirmed:
-        write_register("D2001", 0)
+#     if confirmed:
+#         write_register("D2001", 0)
 
-    return jsonify({
-        "product_confirmed": confirmed
-    })
+#     return jsonify({
+#         "product_confirmed": confirmed
+#     })
 
 
 @app.route('/plc/confirm-product', methods=['POST'])
@@ -195,8 +195,9 @@ def confirm_product():
     # Check if D2014 == 2
     confirmed = (d_values.get("D2015", 0) == 2)
     
-    if confirmed:
-        write_register("D2002", 0)
+    while not confirmed:
+        time.sleep(1)
+    write_register("D2002", 0)
 
     return jsonify({
         "product_confirmed": confirmed
