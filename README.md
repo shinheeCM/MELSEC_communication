@@ -35,6 +35,8 @@
 
     curl http://localhost:5000/amr/object-detection-status
 
+        {"no_object_detected":true,"object_detected":false}
+
     AMR arrived -->
     curl -X POST http://localhost:5000/amrrrived
 
@@ -50,6 +52,14 @@
     curl -X POST http://localhost:5000/amr/confirm-product
 
     Move to Point 1 → Stop for 3s → Move to Point 2 → Stop for 3s → Move to Point 3 → Stop for 3s → Return to Home → Stop
+
+     curl http://localhost:5000/amr/object-detection-status
+
+        {"no_object_detected":false,"object_detected":true}
+    Issue movement command for Discharge Conveyor (B)
+    Send the Amr to Conveter B
+    
+
 
 
 
