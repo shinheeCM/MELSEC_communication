@@ -44,7 +44,7 @@
      -d '{"type": "unloading"}'
 
 
-    AMR arrived -->
+    AMR MOVE -->
         curl -X POST http://localhost:5000/amr/move \
             -H "Content-Type: application/json" \
             -d '{"type": "loading"}'
