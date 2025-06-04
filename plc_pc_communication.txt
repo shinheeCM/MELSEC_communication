@@ -1,0 +1,85 @@
+
+D2000 - PC → PLC Communication Signal
+D2001 - A Conveyor Arrival Signal
+D2002 - B Conveyor Arrival Signal
+D2003 - A Conveyor Movement Signal
+D2004 - B Conveyor Movement Signal
+D2005 - Conveyor Product Presence Detection
+D2006 - A Conveyor Product Transfer Complete Signal (Input)
+D2007 - B Conveyor Product Transfer Complete Signal (Discharge)
+D2008 ~ D2009 - Spare
+
+D2010 - PLC → PC Communication Signal
+D2011 - Conveyor Auto Operation Signal
+D2012 - A Conveyor Ready-to-Move Signal (Input)
+D2013 - B Conveyor Ready-to-Move Signal (Discharge)
+D2014 - A Conveyor Movement Completion Signal (Input) (0 / 1 / 2)
+D2015 - B Conveyor Movement Completion Signal (Discharge) (0 / 1 / 2)
+
+---
+
+Constant Signal Cycle
+
+PC → PLC
+
+D2000 = 1  (3 seconds)
+D2000 = 0  (3 seconds)
+
+PLC → PC
+
+D2010 = 1  (3 seconds)
+D2010 = 0  (3 seconds)
+
+When AMR conveyor detects a product:
+
+D2005 = 1
+D2005 = 0
+
+ *When stopped at the home position, check whether an object is detected on the AMR conveyor.
+
+1) If no object is detected:
+
+* Confirm signal: D2011 = 1
+* Confirm signal: D2012 = 1
+* Start signal (manual trigger)
+* Issue movement command for Input Conveyor (A)
+
+* D2003 = 1
+* Input Conveyor (A) arrived
+* Move AMR conveyor vertically to align with Input Conveyor height
+
+* Set D2003 = 0
+* Set D2001 = 1
+* Confirm signal: D2014 = 1
+* Activate AMR conveyor
+* Confirm product on AMR conveyor
+
+* Set D2006 = 1
+* Confirm signal: D2014 = 2
+
+* Set D2001 = 0
+* Move to Point 1 → Stop for 3s → Move to Point 2 → Stop for 3s → Move to Point 3 → Stop for 3s → Return to Home → Stop
+
+---
+
+2) If object is detected:
+
+* Confirm signal: D2011 = 1
+* Confirm signal: D2013 = 1
+* Issue movement command for Discharge Conveyor (B)
+
+* Set D2004 = 1
+* Discharge Conveyor (B) arrive
+* Move AMR conveyor vertically to align with Discharge Conveyor height
+
+* Set D2004 = 0
+* Set D2002 = 1
+* Confirm signal: D2015 = 1
+* Activate AMR conveyor
+* Confirm product discharged from AMR conveyor
+
+* Set D2007 = 1
+* Confirm signal: D2015 = 2
+
+* Set D2002 = 0
+* Return to Home → Stop
