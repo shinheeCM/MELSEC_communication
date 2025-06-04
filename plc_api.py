@@ -62,29 +62,6 @@ threading.Thread(target=plc_read_cycle, daemon=True).start()
 def status():
     return jsonify(d_values)
 
-@app.route("/start_input_conveyor", methods=["POST"])
-def start_input_conveyor():
-    """Scenario 1: No object on AMR conveyor, use Input Conveyor A"""
-    # Start movement
-    write_register("D2003", 1)
-    time.sleep(3)
-    write_register("D2001", 1)  # A Conveyor Arrival
-    write_register("D2003", 0)
-
-    # Wait until PLC sends D2014 = 1
-    while read_register("D2014") != 1:
-        time.sleep(1)
-
-    # Simulate object transfer
-    write_register("D2006", 1)
-
-    while read_register("D2014") != 2:
-        time.sleep(1)
-
-    write_register("D2001", 0)
-
-    return jsonify({"message": "Input conveyor sequence completed"})
-
 
 
 @app.route("/toggle_signal", methods=["POST"])
@@ -210,8 +187,46 @@ def confirm_product():
     })
 
 
+@app.route('/plc/confirm-product', methods=['POST'])
+def confirm_product():
+    # Write D2006 = 1 to PLC
+    write_register("D2007", 1)
+    
+    # Check if D2014 == 2
+    confirmed = (d_values.get("D2015", 0) == 2)
+    
+    if confirmed:
+        write_register("D2002", 0)
 
-@app.route("/start_discharge_conveyor", methods=["POST"])
+    return jsonify({
+        "product_confirmed": confirmed
+    })
+
+
+@app.route("/start_input_conveyor_sim", methods=["POST"])
+def start_input_conveyor():
+    """Scenario 1: No object on AMR conveyor, use Input Conveyor A"""
+    # Start movement
+    write_register("D2003", 1)
+    time.sleep(3)
+    write_register("D2001", 1)  # A Conveyor Arrival
+    write_register("D2003", 0)
+
+    # Wait until PLC sends D2014 = 1
+    while read_register("D2014") != 1:
+        time.sleep(1)
+
+    # Simulate object transfer
+    write_register("D2006", 1)
+
+    while read_register("D2014") != 2:
+        time.sleep(1)
+
+    write_register("D2001", 0)
+
+    return jsonify({"message": "Input conveyor sequence completed"})
+
+@app.route("/start_discharge_conveyor_sim", methods=["POST"])
 def start_discharge_conveyor():
     """Scenario 2: Object detected on AMR conveyor, use Discharge Conveyor B"""
     write_register("D2004", 1)  # Start Discharge Conveyor
