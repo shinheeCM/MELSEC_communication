@@ -36,13 +36,14 @@
     curl http://localhost:5000/amr/no-object-detected_plc
 
     AMR arrived -->
-    @app.route('/amr/arrived', methods=['POST'])
+    curl -X POST http://localhost:5000/amrrrived
 
 
     Align-conveyor -->
     curl -X POST http://localhost:5000/amr/align-conveyor
-
     
+
+
 
     
 
