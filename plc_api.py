@@ -171,40 +171,42 @@ def check_alignment_confirmed():
     }), 200
 
 
-@app.route('/amr/confirm-product-amr', methods=['POST'])
+@app.route('/amr/confirm-product', methods=['POST'])
 def confirm_product():
-    # Write D2006 = 1 to PLC
-    write_register("D2006", 1)
-    
-    # Check if D2014 == 2
-    confirmed = (d_values.get("D2014", 0) == 2)
-    
-    while confirmed:
-        time.sleep(1)
+    try:
+        data = request.get_json()
+        if not data or 'type' not in data:
+            return jsonify({"status": "error", "message": "Missing 'type' in request"}), 400
 
-    write_register("D2001", 0)
-    write_register("D2006", 0)
-    return jsonify({
-        "product_confirmed": confirmed
-    })
+        if data['type'] == 'loading':
+            # Loading: write D2006 = 1 and wait for D2014 == 2
+            write_register("D2006", 1)
 
+            while d_values.get("D2014", 0) != 2:
+                time.sleep(1)
 
-@app.route('/plc/confirm-product', methods=['POST'])
-def confirm_product():
-    # Write D2006 = 1 to PLC
-    # write_register("D2007", 0)
-    write_register("D2007", 1)
-    
-    # Check if D2014 == 2
-    confirmed = (d_values.get("D2015", 0) == 2)
-    
-    while not confirmed:
-        time.sleep(1)
-    write_register("D2002", 0)
-    write_register("D2007", 0)
-    return jsonify({
-        "product_confirmed": confirmed
-    })
+            write_register("D2001", 0)
+            write_register("D2006", 0)
+
+            return jsonify({"status": "success", "product_confirmed": True}), 200
+
+        elif data['type'] == 'unloading':
+            # Unloading: write D2007 = 1 and wait for D2015 == 2
+            write_register("D2007", 1)
+
+            while d_values.get("D2015", 0) != 2:
+                time.sleep(1)
+
+            write_register("D2002", 0)
+            write_register("D2007", 0)
+
+            return jsonify({"status": "success", "product_confirmed": True}), 200
+
+        else:
+            return jsonify({"status": "error", "message": "Invalid type. Use 'loading' or 'unloading'."}), 400
+
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
 
 
 @app.route("/start_input_conveyor_sim", methods=["POST"])

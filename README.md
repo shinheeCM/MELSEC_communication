@@ -59,6 +59,7 @@
     Align-conveyor Confirmed-->
         curl "http://localhost:5000/amr/alignment/confirmed?type=loading"
         curl "http://localhost:5000/amr/alignment/confirmed?type=unloading"
+        
 
 
 
@@ -78,12 +79,21 @@
     then call -->
 
     Start Discharge Conveyor:
-    curl -X POST http://localhost:5000/start_discharge_conveyor
+    <!-- curl -X POST http://localhost:5000/start_discharge_conveyor -->
 
 
-    curl -X POST http://localhost:5000/plc/confirm-product
-{"product_confirmed":true}
+    <!-- curl -X POST http://localhost:5000/plc/confirm-product
+    {"product_confirmed":true} -->
 
+
+    confirm-product -->
+        curl -X POST http://localhost:5000/amr/confirm-product \
+            -H "Content-Type: application/json" \
+            -d '{"type": "loading"}'
+
+        curl -X POST http://localhost:5000/amr/confirm-product \
+            -H "Content-Type: application/json" \
+            -d '{"type": "unloading"}'
 
     
 
