@@ -26,6 +26,8 @@ def write_register(name, value):
 # Background thread function to toggle D2000 every 3 seconds 
 def toggle_D2000_signal():
     while True:
+        # write_register("D2011", 0)
+        # write_register("D2012", 0)
         write_register("D2000", 1)
         # print("D2000 set to 1")
         time.sleep(3)
