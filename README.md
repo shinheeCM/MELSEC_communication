@@ -6,6 +6,75 @@
 
     Get status:
     curl http://localhost:5000/status
+    
+    1.
+    AMR convare info to PLC->
+    curl -X POST http://localhost:5000/amr/object-detection-status-amr \
+     -H "Content-Type: application/json" \
+     -d '{"type": "loading"}'
+
+    curl -X POST http://localhost:5000/amr/object-detection-status-amr \
+     -H "Content-Type: application/json" \
+     -d '{"type": "unloading"}'
+    
+    2.
+    PLC convare info to AMR->
+    curl -X POST http://localhost:5000/amr/object-detection-status-plc \
+     -H "Content-Type: application/json" \
+     -d '{"type": "loading"}'
+    
+    curl -X POST http://localhost:5000/amr/object-detection-status-plc \
+     -H "Content-Type: application/json" \
+     -d '{"type": "unloading"}'
+
+    3.
+    AMR MOVE -->
+        curl -X POST http://localhost:5000/amr/move \
+            -H "Content-Type: application/json" \
+            -d '{"type": "loading"}'
+        
+        curl -X POST http://localhost:5000/amr/move \
+            -H "Content-Type: application/json" \
+            -d '{"type": "unloading"}'
+    
+    4.
+    Align-conveyor -->
+        curl -X POST http://localhost:5000/amr/run-plc-conveyor \
+            -H "Content-Type: application/json" \
+            -d '{"type": "loading"}'
+        
+        curl -X POST http://localhost:5000/amr/run-plc-conveyor \
+            -H "Content-Type: application/json" \
+            -d '{"type": "unloading"}'
+    
+    5.
+    Align-conveyor Confirmed-->
+        curl "http://localhost:5000/amr/alignment/confirmed?type=loading"
+        curl "http://localhost:5000/amr/alignment/confirmed?type=unloading"
+
+    
+    6.
+    confirm-product -->
+        curl -X POST http://localhost:5000/amr/confirm-product \
+            -H "Content-Type: application/json" \
+            -d '{"type": "loading"}'
+
+        curl -X POST http://localhost:5000/amr/confirm-product \
+            -H "Content-Type: application/json" \
+            -d '{"type": "unloading"}'
+        
+
+
+
+    NOW run convare from AMR (Naresh Action server)
+
+
+
+
+    curl -X POST http://localhost:5000/amr/confirm-product
+
+    Move to Point 1 → Stop for 3s → Move to Point 2 → Stop for 3s → Move to Point 3 → Stop for 3s → Return to Home → Stop
+
 
     Start Input Conveyor:
     curl -X POST http://localhost:5000/start_input_conveyor
@@ -33,67 +102,6 @@
     The PLC to detect no object on conveyor (based on the signals), and when this happens, automatically call (trigger) the AMR via the MES or a button API.
         {"no_object_detected":true,"object_detected":false}
     
-    AMR convare info to PLC->
-    curl -X POST http://localhost:5000/amr/object-detection-status-amr \
-     -H "Content-Type: application/json" \
-     -d '{"type": "loading"}'
-
-    curl -X POST http://localhost:5000/amr/object-detection-status-amr \
-     -H "Content-Type: application/json" \
-     -d '{"type": "unloading"}'
-    
-    PLC convare info to AMR->
-    curl -X POST http://localhost:5000/amr/object-detection-status-plc \
-     -H "Content-Type: application/json" \
-     -d '{"type": "loading"}'
-    
-    curl -X POST http://localhost:5000/amr/object-detection-status-plc \
-     -H "Content-Type: application/json" \
-     -d '{"type": "unloading"}'
-
-
-    AMR MOVE -->
-        curl -X POST http://localhost:5000/amr/move \
-            -H "Content-Type: application/json" \
-            -d '{"type": "loading"}'
-        
-        curl -X POST http://localhost:5000/amr/move \
-            -H "Content-Type: application/json" \
-            -d '{"type": "unloading"}'
-    
-
-    Align-conveyor -->
-        curl -X POST http://localhost:5000/amr/run-plc-conveyor \
-            -H "Content-Type: application/json" \
-            -d '{"type": "loading"}'
-        
-        curl -X POST http://localhost:5000/amr/run-plc-conveyor \
-            -H "Content-Type: application/json" \
-            -d '{"type": "unloading"}'
-    
-
-    Align-conveyor Confirmed-->
-        curl "http://localhost:5000/amr/alignment/confirmed?type=loading"
-        curl "http://localhost:5000/amr/alignment/confirmed?type=unloading"
-    
-
-    confirm-product -->
-        curl -X POST http://localhost:5000/amr/confirm-product \
-            -H "Content-Type: application/json" \
-            -d '{"type": "loading"}'
-
-        curl -X POST http://localhost:5000/amr/confirm-product \
-            -H "Content-Type: application/json" \
-            -d '{"type": "unloading"}'
-        
-
-
-
-    NOW run convare from AMR (Naresh Action server)
-
-    curl -X POST http://localhost:5000/amr/confirm-product
-
-    Move to Point 1 → Stop for 3s → Move to Point 2 → Stop for 3s → Move to Point 3 → Stop for 3s → Return to Home → Stop
 
 
 
