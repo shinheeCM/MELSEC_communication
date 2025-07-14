@@ -1,5 +1,13 @@
 # MELSEC Communication Guide
 
+communication__>
+```
+    plc IP
+    192.168.200.10
+
+    PC IP 
+    192.168.200.11
+```
 # API LIST
 ```
     ./status.sh
