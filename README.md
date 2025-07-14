@@ -2,7 +2,7 @@
 
 communication__>
 ```
-    plc IP
+    plc IP (Gate Way)
     192.168.200.10
 
     PC IP 
